@@ -3,33 +3,34 @@
 # What if the values are not distinct?
 
 
-# Brute Force Approach
-def find_magic_index_brute_force(arr):
-    for i in range(len(arr)):
-        if arr[i] == i:
-            return i
-    return -1
+# Brute Force Approach with Recursion
+def find_magic_index_brute_force_recursive(arr, index=0):
+    if index >= len(arr):
+        return -1
+    if arr[index] == index:
+        return index
+    return find_magic_index_brute_force_recursive(arr, index + 1)
 
-# Optimized Approach
-def find_magic_index_optimized(arr):
-    def binary_search(left, right):
-        if left > right:
-            return -1
-        
-        mid = (left + right) // 2
-        
-        if arr[mid] == mid:
-            return mid
-        
-        if arr[mid] > mid:
-            return binary_search(left, mid - 1)
-        else:
-            return binary_search(mid + 1, right)
+# Optimized Approach with Recursion
+def find_magic_index_optimized_recursive(arr, left, right):
+    if left > right:
+        return -1
     
-    return binary_search(0, len(arr) - 1)
+    mid = (left + right) // 2
+    
+    if arr[mid] == mid:
+        return mid
+    
+    if arr[mid] > mid:
+        return find_magic_index_optimized_recursive(arr, left, mid - 1)
+    else:
+        return find_magic_index_optimized_recursive(arr, mid + 1, right)
+
+# Wrapper function for optimized approach
+def find_magic_index_optimized(arr):
+    return find_magic_index_optimized_recursive(arr, 0, len(arr) - 1)
 
 # Example usage
 arr = [-10, -5, 2, 3, 7]
-print(f"Magic index (Brute Force): {find_magic_index_brute_force(arr)}")
-print(f"Magic index (Optimized): {find_magic_index_optimized(arr)}")
-
+print(f"Magic index (Brute Force Recursive): {find_magic_index_brute_force_recursive(arr)}")
+print(f"Magic index (Optimized Recursive): {find_magic_index_optimized(arr)}")
