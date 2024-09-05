@@ -34,3 +34,34 @@ def find_magic_index_optimized(arr):
 arr = [-10, -5, 2, 3, 7]
 print(f"Magic index (Brute Force Recursive): {find_magic_index_brute_force_recursive(arr)}")
 print(f"Magic index (Optimized Recursive): {find_magic_index_optimized(arr)}")
+
+
+
+# Non Distinct Values 
+# Optimized Approach for Non-Distinct Values
+def find_magic_index_non_distinct(arr):
+    def binary_search(left, right):
+        if left > right:
+            return -1
+        
+        mid = (left + right) // 2
+        
+        if arr[mid] == mid:
+            return mid
+        
+        # To handle duplicates, we need to search both sides
+        # Search left side
+        left_index = min(mid - 1, arr[mid])
+        left_result = binary_search(left, left_index)
+        if left_result != -1:
+            return left_result
+        
+        # Search right side
+        right_index = max(mid + 1, arr[mid])
+        return binary_search(right_index, right)
+
+    return binary_search(0, len(arr) - 1)
+
+# Example usage
+arr = [-10, -5, 1, 2, 2, 3, 7]
+print(f"Magic index (Non-Distinct Values): {find_magic_index_non_distinct(arr)}")
