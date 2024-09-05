@@ -42,6 +42,7 @@ print(f"Number of ways (Brute Force) to climb {n} steps: {count_ways_brute(n)}")
 # #### Dynamic Programming (Top-Down with Memoization):
 
 # ```python
+
 def count_ways_memo(n, memo):
     # Base cases
     if n == 0:
